@@ -73,7 +73,7 @@ export async function importDatabase(file: File): Promise<{ success: boolean; re
     });
 
     // Sesi lama bisa merujuk akun yang id-nya berubah — paksa login ulang
-    sessionStorage.removeItem("kasirku_session");
+    localStorage.removeItem("kasirku_session");
 
     return { success: true };
   } catch (err) {

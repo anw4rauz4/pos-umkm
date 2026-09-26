@@ -12,6 +12,30 @@ import type { UserRow } from "./types";
 const SESSION_KEY = "kasirku_session";
 const SALT = "kasirku-salt-2025";
 
+/**
+ * Sesi disimpan di localStorage (bukan sessionStorage) agar TETAP ADA
+ * setelah browser ditutup — kasir tidak perlu login ulang setiap hari.
+ * localStorage hanya bisa dibaca oleh origin ini sendiri di laptop ini.
+ */
+function readRawSession(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(SESSION_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeRawSession(raw: string | null): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (raw === null) localStorage.removeItem(SESSION_KEY);
+    else localStorage.setItem(SESSION_KEY, raw);
+  } catch {
+    // storage penuh/blocked — biarkan login tetap berfungsi in-memory
+  }
+}
+
 export type { UserSession };
 
 export function hashPassword(password: string, email: string): string {
@@ -71,17 +95,17 @@ export async function loginUser(email: string, password: string): Promise<UserSe
     role: user.role,
     login_at: new Date().toISOString(),
   };
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  writeRawSession(JSON.stringify(session));
   notifyAuthChange();
   return session;
 }
 
 // ---------- Sesi ----------
 export function getSession(): UserSession | null {
-  if (typeof window === "undefined") return null;
+  const raw = readRawSession();
+  if (!raw) return null;
   try {
-    const raw = sessionStorage.getItem(SESSION_KEY);
-    return raw ? (JSON.parse(raw) as UserSession) : null;
+    return JSON.parse(raw) as UserSession;
   } catch {
     return null;
   }
@@ -90,16 +114,16 @@ export function getSession(): UserSession | null {
 export function updateSessionStore(patch: Partial<UserSession>): void {
   const s = getSession();
   if (!s) return;
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify({ ...s, ...patch }));
+  writeRawSession(JSON.stringify({ ...s, ...patch }));
   notifyAuthChange();
 }
 
 export async function logoutUser(): Promise<void> {
-  sessionStorage.removeItem(SESSION_KEY);
+  writeRawSession(null);
   notifyAuthChange();
 }
 
-// ---------- Hook reaktif (external store: sessionStorage) ----------
+// ---------- Hook reaktif (external store: localStorage) ----------
 const authListeners = new Set<() => void>();
 
 export function notifyAuthChange(): void {
@@ -114,7 +138,7 @@ function subscribeAuth(cb: () => void): () => void {
 }
 
 function getAuthSnapshot(): string {
-  return sessionStorage.getItem(SESSION_KEY) ?? "";
+  return readRawSession() ?? "";
 }
 
 function getServerSnapshot(): string {

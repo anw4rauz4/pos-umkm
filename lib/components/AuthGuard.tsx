@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from "@/lib/auth";
+import { useAuth, getSession } from "@/lib/auth";
 import { Store, Loader2 } from "lucide-react";
 
 export default function AuthGuard({
@@ -37,10 +37,16 @@ function RedirectToLogin({
 
   useEffect(() => {
     if (fired) return;
+    // Beri waktu hydration & pembacaan localStorage sebelum memutuskan.
+    // Tanpa jeda ini, render pertama setelah hard-reload bisa salah sikap.
     const t = setTimeout(() => {
       setFired(true);
-      if (pathname !== "/login") router.replace("/login");
-    }, 0);
+      // Cek ulang langsung ke storage — hindari lempar login jika sesi
+      // sebenarnya ada (mis. snapshot hook belum diperbarui).
+      if (pathname !== "/login" && !getSession()) {
+        router.replace("/login");
+      }
+    }, 150);
     return () => clearTimeout(t);
   }, [fired, pathname, router]);
 

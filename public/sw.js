@@ -1,22 +1,40 @@
 // ============================================
 // SERVICE WORKER KASIRKU AI — 100% OFFLINE
 // Strategi:
-//  - App shell (HTML/RSC payload)  : network-first, fallback ke cache saat offline
+//  - PRECACHE semua route (HTML) + chunk statis saat install:
+//    aplikasi bisa dibuka penuh bahkan sebelum halaman dikunjungi
 //  - Aset statis (/_next/static/*) : cache-first (immutable, hash URL)
-//  - Navigasi offline              : fallback ke "/offline"
+//  - Navigasi offline              : fallback ke precache / halaman /offline
 //  - Tidak ada request ke luar scope (filosofi local-only dijaga)
+//  Versi SW baru = cache lama dibersihkan saat activate.
 // ============================================
-const VERSION = "kasirku-v1";
+const VERSION = "kasirku-v2";
 const STATIC_CACHE = `${VERSION}-static`;
 const PAGES_CACHE = `${VERSION}-pages`;
+
+// Semua route aplikasi + fallback offline. Chunks JS/CSS ditambahkan
+// dinamis di bawah dari daftar build (lihat PRECACHE_URLS injection).
 const OFFLINE_URL = "/offline";
+const PRECACHE_URLS = [
+  "/",
+  "/kasir",
+  "/produk",
+  "/supplier",
+  "/dashboard",
+  "/users",
+  "/profile",
+  "/lock",
+  "/login",
+  "/settings/backup",
+  OFFLINE_URL,
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
-      const cache = await caches.open(PAGES_CACHE);
-      await cache.addAll([OFFLINE_URL, "/"]).catch(() => {});
-      // Aktifkan segera tanpa menunggu tab lama tertutup
+      const pages = await caches.open(PAGES_CACHE);
+      // Precache HTML semua route — gagal satu tidak memblokir yang lain
+      await Promise.allSettled(PRECACHE_URLS.map((u) => pages.add(u)));
       await self.skipWaiting();
     })()
   );
@@ -57,7 +75,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Navigasi halaman: network-first, fallback cache, fallback halaman offline
+  // Navigasi halaman: network-first, fallback precache, fallback /offline
   if (req.mode === "navigate") {
     event.respondWith(
       (async () => {

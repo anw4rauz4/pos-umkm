@@ -3,7 +3,11 @@ import { useMemo, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import db from "@/lib/db";
 import { compressImage } from "@/lib/imageHelper";
-import BulkUploadModal from "@/lib/components/BulkUploadModal";
+import dynamic from "next/dynamic";
+
+const BulkUploadModal = dynamic(() => import("@/lib/components/BulkUploadModal"), {
+  ssr: false,
+});
 import {
   Plus,
   Trash2,
@@ -18,7 +22,6 @@ import {
 } from "lucide-react";
 import TierPriceEditor from "@/lib/components/TierPriceEditor";
 import { normalizeTiers, tiersToText, marginPercent, type TierHarga } from "@/lib/tierPricing";
-import { exportExcel } from "@/lib/exportHelpers";
 import type { Product, Supplier } from "@/lib/types";
 
 interface ProdukForm {
@@ -141,6 +144,8 @@ export default function ProdukPage() {
         stok_minimal: p.stok_minimal ?? 10,
       };
     });
+    // Lazy-load library xlsx hanya saat export dipakai (hemat bundle awal)
+    const { exportExcel } = await import("@/lib/excelExport");
     await exportExcel(
       [
         {

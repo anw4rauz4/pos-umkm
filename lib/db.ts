@@ -1,5 +1,14 @@
 import Dexie, { type Table } from "dexie";
-import type { Product, Supplier, Transaction, TransactionItem, UserRow, PurchaseOrder, SyncQueueItem } from "./types";
+import type {
+  Product,
+  Supplier,
+  Transaction,
+  TransactionItem,
+  UserRow,
+  PurchaseOrder,
+  SyncQueueItem,
+  CashSession,
+} from "./types";
 
 export class KasirDB extends Dexie {
   users!: Table<UserRow, number>;
@@ -9,6 +18,7 @@ export class KasirDB extends Dexie {
   transaction_items!: Table<TransactionItem, number>;
   purchase_orders!: Table<PurchaseOrder, number>;
   sync_queue!: Table<SyncQueueItem, number>;
+  cash_sessions!: Table<CashSession, number>;
 
   constructor() {
     super("KasirKuAI_Local");
@@ -54,6 +64,11 @@ export class KasirDB extends Dexie {
         .modify((item: TransactionItem) => {
           if (item.harga_beli_satuan === undefined) item.harga_beli_satuan = null;
         });
+    });
+
+    // v4: sesi tutup kas (setoran & selisih harian)
+    this.version(4).stores({
+      cash_sessions: "++id, opened_at, closed_at, user_id",
     });
   }
 }

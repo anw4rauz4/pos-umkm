@@ -203,6 +203,8 @@ Saat edit produk, centang tier qty (mis. beli 3+ → harga khusus). Di kasir, ha
 | 12 | 🌐 100% offline, tanpa cloud | ✅ |
 | 13 | 📲 PWA — install seperti app desktop/HP + ikon di layar | ✅ |
 | 14 | 💵 Laporan kas harian (tunai diterima / kembalian) | ✅ |
+| 15 | 🧮 Tutup kas: setoran, selisih, & riwayat harian | ✅ |
+| 16 | ⚡ Offline penuh sejak install — semua route di-precache | ✅ |
 
 ---
 
@@ -229,6 +231,16 @@ Setiap transaksi cash menyimpan **uang diterima** dan **kembalian** ke database.
 - **Kembalian Diberikan** — total uang yang keluar
 - **Kas Bersih** — selisih keduanya (angka yang seharusnya ada di laci)
 
+### 🧮 Tutup Kas
+
+Klik tombol **Tutup Kas** di dashboard di akhir hari:
+
+1. Aplikasi menampilkan rekap: tunai diterima, kembalian, dan **uang yang seharusnya ada di laci**
+2. Hitung uang fisik di laci, masukkan angkanya
+3. Aplikasi menghitung **selisih** otomatis — lebih (nota mundul?) atau kurang (cek kembalian)
+4. Tambahkan catatan bila perlu, simpan
+5. Riwayat tutup kas tersimpan dan bisa dilihat kapan saja
+
 ---
 
 ## 💾 Database Schema (IndexedDB)
@@ -243,6 +255,7 @@ Database: **`KasirKuAI_Local`** (Dexie v3, tersimpan di browser laptop Anda)
 | `transactions` | Transaksi (total, metode bayar, timestamp) |
 | `transaction_items` | Item per transaksi (+ snapshot harga beli untuk laporan profit) |
 | `purchase_orders` | Reserved untuk pengembangan |
+| `cash_sessions` | Riwayat tutup kas (setoran, selisih, catatan) |
 | `sync_queue` | Reserved (tidak dipakai — mode local-only permanen) |
 
 ---

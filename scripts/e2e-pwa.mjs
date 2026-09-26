@@ -127,11 +127,16 @@ try {
   const body = await text(page);
   log("Register + auto-login sukses", page.url().replace(BASE, "") === "/" && body.includes("Kasir PWA"));
 
-  // /offline dilindungi AuthGuard — dites setelah login
+  // /offline dilindungi AuthGuard — dites setelah login (polling hingga render)
   await page.goto(BASE + "/offline", { waitUntil: "networkidle0", timeout: 30000 });
-  await sleep(500);
-  const offlineBody = await text(page);
-  log("Halaman /offline render", offlineBody.includes("Anda Sedang Offline") && offlineBody.includes("IndexedDB"));
+  let offlineOk = false;
+  let offlineBody = "";
+  for (let i = 0; i < 12 && !offlineOk; i++) {
+    offlineBody = await text(page);
+    offlineOk = offlineBody.includes("Anda Sedang Offline") && offlineBody.includes("IndexedDB");
+    if (!offlineOk) await sleep(500);
+  }
+  log("Halaman /offline render", offlineOk, offlineBody.slice(0, 80).replace(/\n/g, " | "));
 
   // ============ 3. CHECKOUT CASH ============
   console.log("\n== 3. CHECKOUT CASH ==");

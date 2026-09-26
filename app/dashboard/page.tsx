@@ -13,7 +13,9 @@ import {
   ArrowRight,
   Banknote,
   HandCoins,
+  Calculator,
 } from "lucide-react";
+import CashCloseModal from "@/lib/components/CashCloseModal";
 
 const fmtRp = (n: number) => "Rp " + Math.round(n || 0).toLocaleString("id-ID");
 
@@ -28,6 +30,7 @@ export default function DashboardPage() {
   const products = useLiveQuery(() => db.products.toArray(), []);
 
   // Tanggal dihitung sekali saat mount agar render tetap murni (React Compiler)
+  const [showTutupKas, setShowTutupKas] = useState(false);
   const [dates] = useState(() => {
     const now = Date.now();
     return {
@@ -174,33 +177,41 @@ export default function DashboardPage() {
       </div>
 
       {/* Laporan kas harian */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-            <Banknote className="text-green-600" size={22} />
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+              <Banknote className="text-green-600" size={22} />
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Kas Hari Ini — Tunai Diterima</p>
+              <p className="text-xl font-bold text-gray-800">{fmtRp(stats.cashToday)}</p>
+            </div>
           </div>
-          <div>
-            <p className="text-xs text-gray-500">Kas Hari Ini — Tunai Diterima</p>
-            <p className="text-xl font-bold text-gray-800">{fmtRp(stats.cashToday)}</p>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+              <HandCoins className="text-red-500" size={22} />
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Kembalian Diberikan</p>
+              <p className="text-xl font-bold text-gray-800">{fmtRp(stats.kembalianToday)}</p>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
-            <HandCoins className="text-red-500" size={22} />
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+              <Wallet className="text-blue-600" size={22} />
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Kas Bersih Hari Ini</p>
+              <p className="text-xl font-bold text-green-600">{fmtRp(stats.cashToday - stats.kembalianToday)}</p>
+            </div>
           </div>
-          <div>
-            <p className="text-xs text-gray-500">Kembalian Diberikan</p>
-            <p className="text-xl font-bold text-gray-800">{fmtRp(stats.kembalianToday)}</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-            <Wallet className="text-blue-600" size={22} />
-          </div>
-          <div>
-            <p className="text-xs text-gray-500">Kas Bersih Hari Ini</p>
-            <p className="text-xl font-bold text-green-600">{fmtRp(stats.cashToday - stats.kembalianToday)}</p>
-          </div>
+          <button
+            onClick={() => setShowTutupKas(true)}
+            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg hover:bg-indigo-700 text-sm font-semibold active:scale-95"
+          >
+            <Calculator size={16} /> Tutup Kas
+          </button>
         </div>
       </div>
 
@@ -272,6 +283,8 @@ export default function DashboardPage() {
           </Link>
         </div>
       </div>
+
+      {showTutupKas && <CashCloseModal onClose={() => setShowTutupKas(false)} />}
     </div>
   );
 }

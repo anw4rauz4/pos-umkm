@@ -77,3 +77,28 @@ export interface SyncQueueItem {
   data: unknown;
   created_at: string;
 }
+
+/** Sesi tutup kas: rekap setoran & selisih harian */
+export interface CashSession {
+  id?: number;
+  /** ISO datetime tutup kas */
+  closed_at: string;
+  /** Periode rekap (tanggal lokal, format YYYY-MM-DD) */
+  periode: string;
+  /** Uang tunai diterima (dari transaksi cash periode tsb) */
+  tunai_diterima: number;
+  /** Kembalian diberikan */
+  kembalian: number;
+  /** Kas bersih teoritis = tunai_diterima - kembalian */
+  kas_diharapkan: number;
+  /** Uang fisik yang dihitung/disetor */
+  kas_fisik: number;
+  /** selisih = kas_fisik - kas_diharapkan (minus = kurang setoran) */
+  selisih: number;
+  /** Catatan misal alasan selisih */
+  catatan?: string;
+  user_id?: number;
+  user_nama?: string;
+  /** Jumlah transaksi cash periode tsb */
+  jumlah_transaksi: number;
+}

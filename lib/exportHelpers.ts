@@ -1,7 +1,8 @@
 // ============================================
-// EXPORT / SHARE LAPORAN (Excel + PDF)
+// EXPORT / SHARE LAPORAN (PDF via print dialog)
+// Modul Excel dipisah ke excelExport.ts agar bundle utama
+// tidak membawa library xlsx (~150KB+) kecuali benar-benar dipakai.
 // ============================================
-import * as XLSX from "xlsx";
 
 export function formatRp(n: number): string {
   return "Rp " + Math.round(n || 0).toLocaleString("id-ID");
@@ -31,28 +32,6 @@ export function downloadBlob(blob: Blob, filename: string) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 3000);
-}
-
-// ---------- EXCEL ----------
-
-export interface SheetSpec {
-  name: string;
-  rows: Record<string, string | number>[];
-  columnWidths?: number[];
-}
-
-export function exportExcel(sheets: SheetSpec[], filename: string, shareTitle?: string) {
-  const wb = XLSX.utils.book_new();
-  for (const s of sheets) {
-    const ws = XLSX.utils.json_to_sheet(s.rows.length ? s.rows : [{ Info: "Tidak ada data" }]);
-    if (s.columnWidths?.length) ws["!cols"] = s.columnWidths.map((w) => ({ wch: w }));
-    XLSX.utils.book_append_sheet(wb, ws, s.name.slice(0, 31));
-  }
-  const out = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-  const blob = new Blob([out], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  });
-  return shareOrDownloadFile(blob, filename, shareTitle || "Laporan Excel");
 }
 
 // ---------- PDF (via print dialog → "Save as PDF") ----------
@@ -171,7 +150,7 @@ export function printPdfReport(opts: {
     <span>${esc(opts.footer || "Dokumen dibuat otomatis oleh KasirKu AI")}</span>
     <span>${new Date().getFullYear()}</span>
   </div>
-  <script>window.addEventListener("load", function(){ setTimeout(function(){ window.print(); }, 400); });<\\/script>
+  <script>window.addEventListener("load", function(){ setTimeout(function(){ window.print(); }, 400); });</script>
 </body>
 </html>`;
 

@@ -88,14 +88,14 @@ export default function UsersPage() {
             setError("");
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-semibold"
+          className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-deep text-sm font-semibold"
         >
           <Plus size={16} /> Tambah Pengguna
         </button>
       </div>
 
       {msg && (
-        <div className="bg-green-50 border-l-4 border-green-500 text-green-700 text-sm px-3 py-2 rounded mb-4">
+        <div className="bg-olive/10 border-l-4 border-olive text-olive-deep text-sm px-3 py-2 rounded mb-4">
           {msg}
         </div>
       )}
@@ -115,14 +115,14 @@ export default function UsersPage() {
               <tr key={u.id} className="border-t">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold uppercase shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-navy/10 text-navy flex items-center justify-center font-bold uppercase shrink-0">
                       {u.nama?.charAt(0) || "?"}
                     </div>
                     <div className="min-w-0">
                       <p className="font-semibold text-gray-800 truncate">
                         {u.nama}
                         {me?.id === u.id && (
-                          <span className="ml-2 text-[10px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full">
+                          <span className="ml-2 text-[10px] bg-navy/5 text-navy px-1.5 py-0.5 rounded-full">
                             Anda
                           </span>
                         )}
@@ -135,7 +135,7 @@ export default function UsersPage() {
                   <span
                     className={`text-xs font-semibold px-2 py-1 rounded-full ${
                       u.role === "admin"
-                        ? "bg-purple-50 text-purple-600"
+                        ? "bg-powder-soft text-sage-deep"
                         : "bg-gray-100 text-gray-600"
                     }`}
                   >
@@ -145,7 +145,7 @@ export default function UsersPage() {
                 <td className="px-4 py-3">
                   <span
                     className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                      u.aktif ? "bg-green-50 text-green-600" : "bg-red-50 text-red-500"
+                      u.aktif ? "bg-olive/10 text-olive" : "bg-red-50 text-red-500"
                     }`}
                   >
                     {u.aktif ? "Aktif" : "Nonaktif"}
@@ -163,7 +163,7 @@ export default function UsersPage() {
                     </button>
                     <button
                       onClick={() => handleResetPassword(u)}
-                      className="p-2 text-amber-600 hover:bg-amber-50 rounded-lg"
+                      className="p-2 text-[#8A795C] hover:bg-cream-soft rounded-lg"
                       title="Reset password"
                     >
                       <KeyRound size={15} />
@@ -195,7 +195,7 @@ export default function UsersPage() {
           <div className="bg-white rounded-xl w-full max-w-md">
             <div className="flex justify-between items-center p-4 border-b">
               <h3 className="font-bold text-lg flex items-center gap-2">
-                <UserRound size={20} className="text-blue-600" /> Tambah Pengguna
+                <UserRound size={20} className="text-navy" /> Tambah Pengguna
               </h3>
               <button onClick={() => setShowForm(false)} className="text-gray-500 hover:text-red-500">
                 <X size={20} />
@@ -258,7 +258,7 @@ export default function UsersPage() {
               </button>
               <button
                 onClick={handleAdd}
-                className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                className="flex-1 bg-navy text-white py-2 rounded hover:bg-navy-deep"
               >
                 Simpan
               </button>

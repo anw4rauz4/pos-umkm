@@ -41,9 +41,9 @@ export default function BackupPage() {
     <div className="min-h-screen bg-gray-50 p-6">
       <h1 className="text-3xl font-bold mb-6">💾 Backup & Restore</h1>
 
-      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded">
-        <p className="font-semibold text-yellow-800">⚠️ Backup Rutin!</p>
-        <p className="text-sm text-yellow-700">Lakukan backup minimal 1x seminggu.</p>
+      <div className="bg-cream-soft border-l-4 border-[#B9A88A] p-4 mb-6 rounded">
+        <p className="font-semibold text-[#8A795C]">⚠️ Backup Rutin!</p>
+        <p className="text-sm text-[#8A795C]">Lakukan backup minimal 1x seminggu.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -54,7 +54,7 @@ export default function BackupPage() {
           <button
             onClick={handleExport}
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="w-full bg-navy text-white py-3 rounded-lg hover:bg-navy-deep disabled:opacity-50"
           >
             {loading ? "Memproses..." : "Download Backup"}
           </button>
@@ -64,7 +64,7 @@ export default function BackupPage() {
           <div className="text-4xl mb-4">📤</div>
           <h2 className="text-xl font-bold mb-2">Import Data</h2>
           <p className="text-gray-600 text-sm mb-4">Restore dari file backup.</p>
-          <label className="block w-full bg-green-600 text-white py-3 rounded-lg text-center cursor-pointer hover:bg-green-700">
+          <label className="block w-full bg-olive text-white py-3 rounded-lg text-center cursor-pointer hover:bg-olive-deep">
             {loading ? "Memproses..." : "Upload Backup"}
             <input type="file" accept=".json" onChange={handleImport} className="hidden" disabled={loading} />
           </label>

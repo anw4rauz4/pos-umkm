@@ -92,7 +92,7 @@ export default function LockPage() {
       <span
         key={i}
         className={`w-3.5 h-3.5 rounded-full border-2 ${
-          i < n ? "bg-blue-600 border-blue-600" : "border-gray-300"
+          i < n ? "bg-navy border-blue-600" : "border-gray-300"
         }`}
       />
     ));
@@ -100,11 +100,11 @@ export default function LockPage() {
   return (
     <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center p-4">
       <div className="w-full max-w-sm text-center">
-        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 bg-navy/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
           {mode === "unlocked" ? (
-            <ShieldCheck className="text-green-500" size={32} />
+            <ShieldCheck className="text-olive" size={32} />
           ) : (
-            <Lock className="text-blue-600" size={32} />
+            <Lock className="text-navy" size={32} />
           )}
         </div>
 
@@ -131,7 +131,7 @@ export default function LockPage() {
             {pin.length >= 6 && (
               <button
                 onClick={confirmSetup}
-                className="mt-5 w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700"
+                className="mt-5 w-full bg-navy text-white py-3 rounded-xl font-semibold hover:bg-navy-deep"
               >
                 Simpan PIN
               </button>
@@ -150,7 +150,7 @@ export default function LockPage() {
             {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
             <Keypad onPress={press} onBackspace={backspace} />
             <div className="mt-6 bg-white rounded-xl border border-gray-100 p-4 inline-flex items-center gap-3">
-              <Wallet className="text-green-500" size={20} />
+              <Wallet className="text-olive" size={20} />
               <div className="text-left">
                 <p className="text-xs text-gray-500">Omzet hari ini</p>
                 <p className="font-bold text-gray-800">

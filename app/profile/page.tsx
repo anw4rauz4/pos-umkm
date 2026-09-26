@@ -108,7 +108,7 @@ export default function ProfilePage() {
   };
 
   const inputCls =
-    "w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none";
+    "w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-navy focus:border-navy outline-none";
 
   return (
     <div className="p-4 sm:p-6 max-w-3xl mx-auto">
@@ -121,11 +121,11 @@ export default function ProfilePage() {
         {/* ====== DATA PROFIL & TOKO ====== */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
           <h2 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
-            <Store size={18} className="text-blue-600" /> Data Toko & Akun
+            <Store size={18} className="text-navy" /> Data Toko & Akun
           </h2>
 
           {profileMsg && (
-            <div className="mb-4 flex items-center gap-2 bg-green-50 border-l-4 border-green-500 text-green-700 text-sm px-3 py-2 rounded">
+            <div className="mb-4 flex items-center gap-2 bg-olive/10 border-l-4 border-olive text-olive-deep text-sm px-3 py-2 rounded">
               <CheckCircle2 size={15} /> {profileMsg}
             </div>
           )}
@@ -191,7 +191,7 @@ export default function ProfilePage() {
             <button
               onClick={handleSaveProfile}
               disabled={savingProfile}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-semibold"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-navy text-white px-5 py-2.5 rounded-lg hover:bg-navy-deep disabled:opacity-50 font-semibold"
             >
               {savingProfile ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
               Simpan Perubahan
@@ -206,7 +206,7 @@ export default function ProfilePage() {
           </h2>
 
           {passMsg && (
-            <div className="mb-4 flex items-center gap-2 bg-green-50 border-l-4 border-green-500 text-green-700 text-sm px-3 py-2 rounded">
+            <div className="mb-4 flex items-center gap-2 bg-olive/10 border-l-4 border-olive text-olive-deep text-sm px-3 py-2 rounded">
               <CheckCircle2 size={15} /> {passMsg}
             </div>
           )}
@@ -257,7 +257,7 @@ export default function ProfilePage() {
             <button
               onClick={handleChangePassword}
               disabled={savingPass}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-amber-500 text-white px-5 py-2.5 rounded-lg hover:bg-amber-600 disabled:opacity-50 font-semibold"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-cream-soft0 text-white px-5 py-2.5 rounded-lg hover:bg-[#A6956F] disabled:opacity-50 font-semibold"
             >
               {savingPass ? <Loader2 size={16} className="animate-spin" /> : <KeyRound size={16} />}
               Ganti Password

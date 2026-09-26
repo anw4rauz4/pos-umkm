@@ -207,7 +207,7 @@ export default function KasirPage() {
           <h2 className="text-2xl font-bold text-gray-800">🛒 Pilih Produk</h2>
           <button
             onClick={() => setShowScanner(true)}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 active:scale-95 text-sm font-semibold"
+            className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-deep active:scale-95 text-sm font-semibold"
           >
             <ScanBarcode size={18} />
             Scan Barcode
@@ -222,7 +222,7 @@ export default function KasirPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Cari produk untuk ditambahkan..."
-            className="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-navy focus:border-navy outline-none"
           />
         </div>
 
@@ -245,7 +245,7 @@ export default function KasirPage() {
               </div>
               <div className="p-2.5">
                 <div className="font-semibold text-gray-800 text-sm truncate">{p.nama_produk}</div>
-                <div className="text-blue-600 font-bold text-sm">
+                <div className="text-navy font-bold text-sm">
                   Rp {Number(p.harga_jual).toLocaleString()}
                 </div>
                 <div
@@ -253,7 +253,7 @@ export default function KasirPage() {
                     p.stok <= 0
                       ? "text-red-500 font-bold"
                       : p.stok <= (p.stok_minimal ?? 10)
-                        ? "text-orange-500 font-bold"
+                        ? "text-[#8A795C] font-bold"
                         : "text-gray-500"
                   }`}
                 >
@@ -319,13 +319,13 @@ export default function KasirPage() {
                 {/* CHECKLIST HARGA BERTINGKAT */}
                 {tiers.length > 0 && (
                   <div className="mt-1.5 flex flex-wrap items-center gap-1">
-                    <Percent size={11} className="text-indigo-400 shrink-0" />
+                    <Percent size={11} className="text-sage/70 shrink-0" />
                     <button
                       onClick={() => setTierMode(item.id, null)}
                       className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border transition-colors ${
                         item.harga_manual == null
-                          ? "bg-indigo-600 border-indigo-600 text-white"
-                          : "border-gray-200 text-gray-500 hover:border-indigo-300"
+                          ? "bg-sage border-sage text-white"
+                          : "border-gray-200 text-gray-500 hover:border-sage/40"
                       }`}
                       title="Harga otomatis mengikuti qty"
                     >
@@ -340,10 +340,10 @@ export default function KasirPage() {
                           onClick={() => setTierMode(item.id, t.harga)}
                           className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border transition-colors ${
                             isActive
-                              ? "bg-emerald-600 border-emerald-600 text-white"
+                              ? "bg-sage border-sage text-white"
                               : qualifies
-                                ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400"
-                                : "border-dashed border-gray-200 text-gray-400 hover:border-indigo-300"
+                                ? "border-emerald-200 bg-sage/10 text-sage-deep hover:border-sage/60"
+                                : "border-dashed border-gray-200 text-gray-400 hover:border-sage/40"
                           }`}
                           title={`Beli ${t.qty}+: ${formatRp(t.harga)}/pcs${qualifies ? "" : " (qty belum cukup)"}`}
                         >
@@ -362,14 +362,14 @@ export default function KasirPage() {
           {cart.some((c) => c.harga_manual != null) && (
             <button
               onClick={() => setCart(cart.map((c) => ({ ...c, harga_manual: null })))}
-              className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 mb-2"
+              className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-sage hover:text-sage-deep mb-2"
             >
               <RotateCcw size={12} /> Reset semua harga ke otomatis
             </button>
           )}
           <div className="flex justify-between text-lg font-bold mb-3">
             <span>Total:</span>
-            <span className="text-blue-600">Rp {total.toLocaleString("id-ID")}</span>
+            <span className="text-navy">Rp {total.toLocaleString("id-ID")}</span>
           </div>
 
           <div className="grid grid-cols-3 gap-2 mb-2">
@@ -378,19 +378,19 @@ export default function KasirPage() {
                 setBayar("");
                 setPayModal(true);
               }}
-              className="bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 text-sm font-semibold"
+              className="bg-olive text-white py-2.5 rounded-lg hover:bg-olive-deep text-sm font-semibold"
             >
               💵 Cash
             </button>
             <button
               onClick={() => handleCheckout("qris")}
-              className="bg-purple-600 text-white py-2.5 rounded-lg hover:bg-purple-700 text-sm font-semibold"
+              className="bg-powder text-white py-2.5 rounded-lg hover:bg-powder/80 text-sm font-semibold"
             >
               📱 QRIS
             </button>
             <button
               onClick={() => handleCheckout("transfer")}
-              className="bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 text-sm font-semibold"
+              className="bg-navy text-white py-2.5 rounded-lg hover:bg-navy-deep text-sm font-semibold"
             >
               🏦 TF
             </button>
@@ -428,7 +428,7 @@ export default function KasirPage() {
             </div>
 
             <p className="text-sm text-gray-500 mb-1">Total belanja</p>
-            <p className="text-2xl font-bold text-blue-600 mb-4">Rp {total.toLocaleString("id-ID")}</p>
+            <p className="text-2xl font-bold text-navy mb-4">Rp {total.toLocaleString("id-ID")}</p>
 
             <label className="block text-sm font-semibold text-gray-700 mb-1">Uang diterima</label>
             <input
@@ -446,7 +446,7 @@ export default function KasirPage() {
                 }
               }}
               placeholder={String(total)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-lg font-semibold focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-lg font-semibold focus:ring-2 focus:ring-olive focus:border-olive outline-none"
             />
 
             <div className="grid grid-cols-4 gap-1.5 mt-3">
@@ -461,7 +461,7 @@ export default function KasirPage() {
               ))}
               <button
                 onClick={() => setBayar(String(total))}
-                className="col-span-3 border border-gray-200 rounded-lg py-1.5 text-xs font-semibold text-blue-600 hover:bg-blue-50 active:scale-95"
+                className="col-span-3 border border-gray-200 rounded-lg py-1.5 text-xs font-semibold text-navy hover:bg-navy/5 active:scale-95"
               >
                 Uang pas
               </button>
@@ -469,7 +469,7 @@ export default function KasirPage() {
 
             {Number(bayar) >= total && bayar !== "" && (
               <p className="mt-3 text-center text-sm">
-                Kembalian: <b className="text-green-600">Rp {(Number(bayar) - total).toLocaleString("id-ID")}</b>
+                Kembalian: <b className="text-olive">Rp {(Number(bayar) - total).toLocaleString("id-ID")}</b>
               </p>
             )}
 
@@ -480,7 +480,7 @@ export default function KasirPage() {
                 setPayModal(false);
                 handleCheckout("cash", n);
               }}
-              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 font-semibold mt-4 disabled:opacity-50"
+              className="w-full bg-olive text-white py-3 rounded-lg hover:bg-olive-deep font-semibold mt-4 disabled:opacity-50"
               disabled={!bayar || Number(bayar) < total}
             >
               Selesaikan Transaksi

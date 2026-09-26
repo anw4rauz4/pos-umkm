@@ -45,15 +45,15 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
   const removeTier = (qty: number) => onChange(value.filter((t) => t.qty !== qty));
 
   const marginColor = (p: number) =>
-    p <= 0 ? "bg-red-50 text-red-500" : p < 10 ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600";
+    p <= 0 ? "bg-red-50 text-red-500" : p < 10 ? "bg-cream-soft text-[#8A795C]" : "bg-sage/10 text-sage";
 
   return (
-    <div className="border border-indigo-100 bg-indigo-50/40 rounded-lg p-3">
+    <div className="border border-indigo-100 bg-sage/10/40 rounded-lg p-3">
       <div className="flex items-center justify-between mb-2">
-        <label className="text-sm font-semibold text-indigo-900 flex items-center gap-1.5">
+        <label className="text-sm font-semibold text-sage-deep flex items-center gap-1.5">
           <Percent size={14} /> Harga Bertingkat (Grosir)
         </label>
-        <span className="text-[11px] text-indigo-400">Centang qty yang pakai harga khusus</span>
+        <span className="text-[11px] text-sage/70">Centang qty yang pakai harga khusus</span>
       </div>
 
       {/* Preset qty: 1, 3, 6, 9, 12, 24 */}
@@ -66,19 +66,19 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
             <div
               key={qty}
               className={`rounded-lg border-2 p-2 transition-colors ${
-                active ? "border-indigo-500 bg-white shadow-sm" : "border-dashed border-indigo-200 bg-white/50"
+                active ? "border-sage bg-white shadow-sm" : "border-dashed border-sage/30 bg-white/50"
               }`}
             >
               <button
                 type="button"
                 onClick={() => togglePreset(qty)}
                 className={`w-full flex items-center gap-1.5 text-left text-xs font-bold ${
-                  active ? "text-indigo-700" : "text-gray-500 hover:text-indigo-600"
+                  active ? "text-indigo-700" : "text-gray-500 hover:text-sage"
                 }`}
               >
                 <span
                   className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
-                    active ? "bg-indigo-600 border-indigo-600 text-white" : "border-gray-300 bg-white"
+                    active ? "bg-sage border-sage text-white" : "border-gray-300 bg-white"
                   }`}
                 >
                   {active && <Check size={11} strokeWidth={3} />}
@@ -92,7 +92,7 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
                     min={0}
                     value={tier.harga}
                     onChange={(e) => updateTier(qty, Number(e.target.value))}
-                    className="w-full border border-indigo-200 rounded px-2 py-1 text-sm font-semibold text-indigo-900 focus:ring-2 focus:ring-indigo-400 outline-none"
+                    className="w-full border border-sage/30 rounded px-2 py-1 text-sm font-semibold text-sage-deep focus:ring-2 focus:ring-indigo-400 outline-none"
                   />
                   <div className={`mt-1 inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full ${marginColor(margin)}`}>
                     margin {margin.toFixed(0)}%
@@ -109,7 +109,7 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
           return (
             <div key={"c" + t.qty} className="rounded-lg border-2 border-fuchsia-400 bg-white shadow-sm p-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-fuchsia-700">⚡ Custom</span>
+                <span className="text-xs font-bold text-sage-deep">⚡ Custom</span>
                 <button type="button" onClick={() => removeTier(t.qty)} className="text-gray-400 hover:text-red-500">
                   <X size={13} />
                 </button>
@@ -123,7 +123,7 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
                     const q = Math.max(1, Math.floor(Number(e.target.value) || 1));
                     onChange(value.map((x) => (x.qty === t.qty ? { ...x, qty: q } : x)).sort((a, b) => a.qty - b.qty));
                   }}
-                  className="w-16 border border-fuchsia-200 rounded px-2 py-1 text-sm font-semibold text-fuchsia-900 outline-none focus:ring-2 focus:ring-fuchsia-300"
+                  className="w-16 border border-powder/40 rounded px-2 py-1 text-sm font-semibold text-navy outline-none focus:ring-2 focus:ring-fuchsia-300"
                   title="Qty minimal"
                 />
                 <input
@@ -131,7 +131,7 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
                   min={0}
                   value={t.harga}
                   onChange={(e) => updateTier(t.qty, Number(e.target.value))}
-                  className="flex-1 min-w-0 border border-fuchsia-200 rounded px-2 py-1 text-sm font-semibold text-fuchsia-900 outline-none focus:ring-2 focus:ring-fuchsia-300"
+                  className="flex-1 min-w-0 border border-powder/40 rounded px-2 py-1 text-sm font-semibold text-navy outline-none focus:ring-2 focus:ring-fuchsia-300"
                   title="Harga satuan"
                 />
               </div>
@@ -145,13 +145,13 @@ export default function TierPriceEditor({ value, onChange, hargaBeli, hargaJual 
         <button
           type="button"
           onClick={addCustom}
-          className="rounded-lg border-2 border-dashed border-fuchsia-300 bg-white/50 p-2 text-xs font-bold text-fuchsia-600 hover:bg-fuchsia-50 flex flex-col items-center justify-center gap-1 min-h-[64px]"
+          className="rounded-lg border-2 border-dashed border-fuchsia-300 bg-white/50 p-2 text-xs font-bold text-sage-deep hover:bg-powder-soft flex flex-col items-center justify-center gap-1 min-h-[64px]"
         >
           <Sparkles size={15} /> Tambah Qty Custom
         </button>
       </div>
 
-      <p className="text-[11px] text-indigo-400 mt-2">
+      <p className="text-[11px] text-sage/70 mt-2">
         Harga dasar {fmtRp(hargaJual)} berlaku di luar tier. Di kasir, tier otomatis aktif saat qty mencapai batas minimal.
       </p>
     </div>

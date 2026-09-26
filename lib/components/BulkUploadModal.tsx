@@ -190,7 +190,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
           <h3 className="font-bold text-lg flex items-center gap-2">
-            <FileSpreadsheet className="text-green-600" size={22} />
+            <FileSpreadsheet className="text-olive" size={22} />
             Import Master Produk (Bulk)
           </h3>
           <button onClick={onClose} className="text-gray-500 hover:text-red-500">
@@ -204,7 +204,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
             <div>
               <div
                 onClick={() => inputRef.current?.click()}
-                className="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/40 transition-colors"
+                className="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center cursor-pointer hover:border-navy/50 hover:bg-navy/5/40 transition-colors"
               >
                 <Upload size={40} className="mx-auto text-gray-400 mb-3" />
                 <p className="font-semibold text-gray-700">Klik untuk pilih file Excel / CSV</p>
@@ -218,7 +218,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
                 className="hidden"
               />
 
-              <div className="mt-4 bg-blue-50 border border-blue-100 rounded-lg p-3 text-sm text-blue-800">
+              <div className="mt-4 bg-navy/5 border border-blue-100 rounded-lg p-3 text-sm text-navy">
                 <p className="font-semibold mb-1">Kolom yang dikenali:</p>
                 <p className="text-xs leading-relaxed">
                   <b>nama_produk</b> (wajib) • <b>sku</b> • <b>barcode</b> • <b>harga_beli</b> •{" "}
@@ -228,7 +228,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
 
               <button
                 onClick={downloadTemplate}
-                className="mt-3 flex items-center gap-2 text-sm text-blue-600 hover:underline"
+                className="mt-3 flex items-center gap-2 text-sm text-navy hover:underline"
               >
                 <Download size={14} /> Download template Excel
               </button>
@@ -243,13 +243,13 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
                   <p className="font-semibold text-gray-800 truncate max-w-xs">📄 {fileName}</p>
                   <p className="text-xs text-gray-500">
                     {rows.length} baris •{" "}
-                    <span className="text-green-600 font-semibold">{validRows.length} valid</span> •{" "}
+                    <span className="text-olive font-semibold">{validRows.length} valid</span> •{" "}
                     <span className="text-red-500 font-semibold">{invalidRows.length} bermasalah</span>
                   </p>
                 </div>
                 <button
                   onClick={() => { setStep("pick"); setRows([]); }}
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-navy hover:underline"
                 >
                   Pilih file lain
                 </button>
@@ -260,7 +260,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
                 <button
                   onClick={() => setMode("merge")}
                   className={`p-3 rounded-lg border-2 text-left transition-colors ${
-                    mode === "merge" ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                    mode === "merge" ? "border-navy bg-navy/5" : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
                   <p className="font-semibold text-sm text-gray-800">➕ Gabungkan</p>
@@ -298,7 +298,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
                       <tr key={i} className={`border-t ${r.errors.length ? "bg-red-50/50" : ""}`}>
                         <td className="px-2 py-1.5">
                           {r.errors.length === 0 ? (
-                            <CheckCircle2 size={14} className="text-green-500" />
+                            <CheckCircle2 size={14} className="text-olive" />
                           ) : (
                             <XCircle size={14} className="text-red-500" />
                           )}
@@ -327,7 +327,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
           {/* STEP 3: selesai */}
           {step === "done" && result && (
             <div className="text-center py-8">
-              <CheckCircle2 size={56} className="mx-auto text-green-500 mb-3" />
+              <CheckCircle2 size={56} className="mx-auto text-olive mb-3" />
               <h4 className="text-lg font-bold text-gray-800 mb-1">Import selesai!</h4>
               <p className="text-sm text-gray-600">
                 {[
@@ -354,7 +354,7 @@ export default function BulkUploadModal({ onClose, onImported, modeDefault = "me
             <button
               onClick={doImport}
               disabled={importing || validRows.length === 0}
-              className="flex-[2] bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 disabled:opacity-50 font-semibold flex items-center justify-center gap-2"
+              className="flex-[2] bg-olive text-white py-2.5 rounded-lg hover:bg-olive-deep disabled:opacity-50 font-semibold flex items-center justify-center gap-2"
             >
               {importing ? (
                 <>

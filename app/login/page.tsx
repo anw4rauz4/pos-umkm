@@ -50,7 +50,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-6">
           <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-3">
-            <Store className="text-blue-600" size={32} />
+            <Store className="text-navy" size={32} />
           </div>
           <h1 className="text-3xl font-bold text-white">KasirKu AI</h1>
           <p className="text-blue-200 text-sm mt-1">Aplikasi Kasir UMKM — 100% Offline</p>
@@ -67,7 +67,7 @@ export default function LoginPage() {
                 setError("");
               }}
               className={`flex-1 py-2 rounded-md text-sm font-semibold transition-colors ${
-                mode === "login" ? "bg-white shadow text-blue-600" : "text-gray-500 hover:text-gray-700"
+                mode === "login" ? "bg-white shadow text-navy" : "text-gray-500 hover:text-gray-700"
               }`}
             >
               Masuk
@@ -79,7 +79,7 @@ export default function LoginPage() {
                 setError("");
               }}
               className={`flex-1 py-2 rounded-md text-sm font-semibold transition-colors ${
-                mode === "register" ? "bg-white shadow text-blue-600" : "text-gray-500 hover:text-gray-700"
+                mode === "register" ? "bg-white shadow text-navy" : "text-gray-500 hover:text-gray-700"
               }`}
             >
               Daftar
@@ -95,7 +95,7 @@ export default function LoginPage() {
                     type="text"
                     value={form.nama}
                     onChange={set("nama")}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-navy focus:border-navy outline-none"
                     placeholder="Budi Santoso"
                     required
                   />
@@ -106,7 +106,7 @@ export default function LoginPage() {
                     type="text"
                     value={form.nama_toko}
                     onChange={set("nama_toko")}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-navy focus:border-navy outline-none"
                     placeholder="Toko Maju Jaya"
                     required
                   />
@@ -120,7 +120,7 @@ export default function LoginPage() {
                 type="email"
                 value={form.email}
                 onChange={set("email")}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:ring-2 focus:ring-navy focus:border-navy outline-none"
                 placeholder="nama@email.com"
                 required
               />
@@ -133,7 +133,7 @@ export default function LoginPage() {
                   type={showPass ? "text" : "password"}
                   value={form.password}
                   onChange={set("password")}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 pr-10 focus:ring-2 focus:ring-navy focus:border-navy outline-none"
                   placeholder={mode === "register" ? "Minimal 6 karakter" : "••••••••"}
                   required
                   minLength={6}
@@ -158,7 +158,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-navy text-white py-2.5 rounded-lg font-semibold hover:bg-navy-deep disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <Loader2 size={18} className="animate-spin" />

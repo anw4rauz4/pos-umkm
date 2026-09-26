@@ -74,7 +74,7 @@ export default function PWARegister() {
 
   // Banner install / update
   if (!installEvent && !needRefresh) return (
-    <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 bg-green-600 text-white text-xs px-3 py-2 rounded-full shadow-lg pointer-events-none">
+    <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 bg-olive text-white text-xs px-3 py-2 rounded-full shadow-lg pointer-events-none">
       <Wifi size={13} />
       Online
     </div>
@@ -95,7 +95,7 @@ export default function PWARegister() {
           <p className="text-xs text-gray-500 mt-1 mb-3">Versi baru aplikasi sudah siap.</p>
           <button
             onClick={handleUpdate}
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
+            className="w-full flex items-center justify-center gap-2 bg-navy text-white py-2 rounded-lg text-sm font-semibold hover:bg-navy-deep"
           >
             <RefreshCw size={14} /> Muat Ulang
           </button>
@@ -108,7 +108,7 @@ export default function PWARegister() {
           </p>
           <button
             onClick={handleInstall}
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700"
+            className="w-full flex items-center justify-center gap-2 bg-navy text-white py-2 rounded-lg text-sm font-semibold hover:bg-navy-deep"
           >
             <Download size={14} /> Install App
           </button>

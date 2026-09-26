@@ -61,7 +61,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-lg text-gray-800 shrink-0">
-            <Store className="text-blue-600" size={22} />
+            <Store className="text-navy" size={22} />
             <span className="hidden sm:inline">KasirKu AI</span>
           </Link>
 
@@ -76,7 +76,7 @@ export default function Navbar() {
                   href={m.href}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                     isActive
-                      ? "bg-blue-600 text-white"
+                      ? "bg-navy text-white"
                       : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                   }`}
                 >
@@ -93,7 +93,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(!menuOpen)}
               className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100"
             >
-              <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold uppercase">
+              <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center text-sm font-bold uppercase">
                 {user?.nama?.charAt(0) || "?"}
               </div>
               <div className="hidden sm:block text-left leading-tight">
@@ -111,7 +111,7 @@ export default function Navbar() {
                   <p className="text-sm font-semibold text-gray-800 truncate">{user?.nama}</p>
                   <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                   {user?.nama_toko && (
-                    <p className="text-xs text-blue-600 mt-1 truncate">🏪 {user.nama_toko}</p>
+                    <p className="text-xs text-navy mt-1 truncate">🏪 {user.nama_toko}</p>
                   )}
                 </div>
                 <Link

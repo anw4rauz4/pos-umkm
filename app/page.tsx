@@ -25,11 +25,11 @@ export default function Home() {
   const lowStock = products.filter((p) => p.stok <= (p.stok_minimal ?? 10)).length;
 
   const menu = [
-    { href: "/dashboard", icon: LayoutDashboard, title: "Dashboard", desc: "Grafik & analytics", color: "bg-indigo-500" },
-    { href: "/kasir", icon: ShoppingCart, title: "Kasir", desc: "Transaksi penjualan", color: "bg-green-500" },
-    { href: "/produk", icon: Package, title: "Produk", desc: "Master data & import Excel", color: "bg-blue-500" },
-    { href: "/supplier", icon: Building2, title: "Supplier", desc: "Kelola supplier", color: "bg-cyan-500" },
-    { href: "/settings/backup", icon: Save, title: "Backup", desc: "Backup & restore", color: "bg-purple-500" },
+    { href: "/dashboard", icon: LayoutDashboard, title: "Dashboard", desc: "Grafik & analytics", color: "bg-sage/100" },
+    { href: "/kasir", icon: ShoppingCart, title: "Kasir", desc: "Transaksi penjualan", color: "bg-olive/100" },
+    { href: "/produk", icon: Package, title: "Produk", desc: "Master data & import Excel", color: "bg-navy/50" },
+    { href: "/supplier", icon: Building2, title: "Supplier", desc: "Kelola supplier", color: "bg-sage" },
+    { href: "/settings/backup", icon: Save, title: "Backup", desc: "Backup & restore", color: "bg-powder-soft0" },
   ];
 
   const fmtRp = (n: number) => "Rp " + Math.round(n || 0).toLocaleString("id-ID");
@@ -48,12 +48,12 @@ export default function Home() {
       {/* Ringkasan */}
       <div className="grid grid-cols-3 gap-3 mb-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center">
-          <Wallet className="mx-auto text-green-500 mb-1.5" size={22} />
+          <Wallet className="mx-auto text-olive mb-1.5" size={22} />
           <p className="text-xs text-gray-500">Omzet Hari Ini</p>
           <p className="font-bold text-gray-800 text-sm sm:text-base">{fmtRp(omzetToday)}</p>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center">
-          <Package className="mx-auto text-blue-500 mb-1.5" size={22} />
+          <Package className="mx-auto text-navy mb-1.5" size={22} />
           <p className="text-xs text-gray-500">Total Produk</p>
           <p className="font-bold text-gray-800 text-sm sm:text-base">{products.length}</p>
         </div>
@@ -86,8 +86,8 @@ export default function Home() {
         })}
       </div>
 
-      <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-        <p className="text-blue-800 text-sm">
+      <div className="mt-8 bg-navy/5 border-l-4 border-navy p-4 rounded">
+        <p className="text-navy text-sm">
           ✅ Database: IndexedDB (Localhost) | 🔐 Login lokal | 💾 Backup: JSON | 🚫 Tanpa Cloud/Server
         </p>
       </div>

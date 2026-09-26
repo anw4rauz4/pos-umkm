@@ -69,8 +69,8 @@ export default function CashCloseModal({ onClose }: { onClose: () => void }) {
             <>
               {/* Rekap */}
               <div className="grid grid-cols-3 gap-2 mb-4">
-                <div className="bg-green-50 border border-green-100 rounded-lg p-3 text-center">
-                  <Banknote size={18} className="mx-auto text-green-600 mb-1" />
+                <div className="bg-olive/10 border border-olive/20 rounded-lg p-3 text-center">
+                  <Banknote size={18} className="mx-auto text-olive mb-1" />
                   <p className="text-[10px] text-gray-500 uppercase">Tunai Diterima</p>
                   <p className="font-bold text-sm text-gray-800">{formatRp(rekap.tunai_diterima)}</p>
                 </div>
@@ -79,8 +79,8 @@ export default function CashCloseModal({ onClose }: { onClose: () => void }) {
                   <p className="text-[10px] text-gray-500 uppercase">Kembalian</p>
                   <p className="font-bold text-sm text-gray-800">{formatRp(rekap.kembalian)}</p>
                 </div>
-                <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 text-center">
-                  <Wallet size={18} className="mx-auto text-blue-600 mb-1" />
+                <div className="bg-navy/5 border border-blue-100 rounded-lg p-3 text-center">
+                  <Wallet size={18} className="mx-auto text-navy mb-1" />
                   <p className="text-[10px] text-gray-500 uppercase">Harus di Laci</p>
                   <p className="font-bold text-sm text-gray-800">{formatRp(rekap.kas_diharapkan)}</p>
                 </div>
@@ -122,16 +122,16 @@ export default function CashCloseModal({ onClose }: { onClose: () => void }) {
                 value={kasFisik}
                 onChange={(e) => setKasFisik(e.target.value)}
                 placeholder={String(rekap.kas_diharapkan)}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-lg font-semibold focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-lg font-semibold focus:ring-2 focus:ring-navy focus:border-navy outline-none"
               />
 
               {fisik > 0 && (
                 <div
                   className={`mt-3 rounded-lg p-3 text-sm flex items-center gap-2 ${
                     selisih === 0
-                      ? "bg-green-50 text-green-700"
+                      ? "bg-olive/10 text-olive-deep"
                       : selisih > 0
-                        ? "bg-amber-50 text-amber-700"
+                        ? "bg-cream-soft text-amber-700"
                         : "bg-red-50 text-red-700"
                   }`}
                 >
@@ -155,19 +155,19 @@ export default function CashCloseModal({ onClose }: { onClose: () => void }) {
                 value={catatan}
                 onChange={(e) => setCatatan(e.target.value)}
                 placeholder="mis. nota mundul Rp 5.000"
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-navy focus:border-navy"
               />
 
               <button
                 onClick={handleSimpan}
                 disabled={saving || saved}
-                className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-semibold mt-4 disabled:opacity-50"
+                className="w-full bg-navy text-white py-3 rounded-lg hover:bg-navy-deep font-semibold mt-4 disabled:opacity-50"
               >
                 {saving ? "Menyimpan..." : saved ? "✅ Tutup kas tersimpan" : "Simpan Tutup Kas"}
               </button>
 
               {saved && (
-                <p className="text-center text-xs text-green-600 mt-2">
+                <p className="text-center text-xs text-olive mt-2">
                   Tersimpan ke riwayat. Aman untuk setor uang ke kas bisnis.
                 </p>
               )}
@@ -196,7 +196,7 @@ export default function CashCloseModal({ onClose }: { onClose: () => void }) {
                       <span className="text-gray-700">Setor {formatRp(s.kas_fisik)}</span>
                       <span
                         className={`ml-2 font-bold ${
-                          s.selisih === 0 ? "text-green-600" : s.selisih > 0 ? "text-amber-600" : "text-red-600"
+                          s.selisih === 0 ? "text-olive" : s.selisih > 0 ? "text-[#8A795C]" : "text-red-600"
                         }`}
                       >
                         {s.selisih > 0 ? "+" : ""}

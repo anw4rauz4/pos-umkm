@@ -95,7 +95,7 @@ try {
   const themeColor = await page.evaluate(() =>
     document.querySelector('meta[name="theme-color"]')?.getAttribute("content")
   );
-  log("Meta theme-color terpasang", themeColor === "#2563eb", String(themeColor));
+  log("Meta theme-color terpasang", themeColor === "#1d2733", String(themeColor));
 
   // Tunggu service worker aktif (polling hingga 10 detik)
   let swActive = false;

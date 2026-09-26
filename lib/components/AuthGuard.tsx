@@ -47,7 +47,7 @@ function RedirectToLogin({
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="text-center">
-        <Loader2 size={36} className="animate-spin mx-auto text-blue-600" />
+        <Loader2 size={36} className="animate-spin mx-auto text-navy" />
         <p className="mt-3 text-gray-500 text-sm">Memeriksa sesi login...</p>
         <Store className="mt-6 mx-auto text-gray-200" size={40} />
       </div>

@@ -137,7 +137,7 @@ export default function DashboardPage() {
         </div>
         <Link
           href="/kasir"
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-semibold"
+          className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-deep text-sm font-semibold"
         >
           Buka Kasir <ArrowRight size={16} />
         </Link>
@@ -180,8 +180,8 @@ export default function DashboardPage() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-              <Banknote className="text-green-600" size={22} />
+            <div className="w-10 h-10 bg-olive/15 rounded-xl flex items-center justify-center">
+              <Banknote className="text-olive" size={22} />
             </div>
             <div>
               <p className="text-xs text-gray-500">Kas Hari Ini — Tunai Diterima</p>
@@ -198,17 +198,17 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-              <Wallet className="text-blue-600" size={22} />
+            <div className="w-10 h-10 bg-navy/10 rounded-xl flex items-center justify-center">
+              <Wallet className="text-navy" size={22} />
             </div>
             <div>
               <p className="text-xs text-gray-500">Kas Bersih Hari Ini</p>
-              <p className="text-xl font-bold text-green-600">{fmtRp(stats.cashToday - stats.kembalianToday)}</p>
+              <p className="text-xl font-bold text-olive">{fmtRp(stats.cashToday - stats.kembalianToday)}</p>
             </div>
           </div>
           <button
             onClick={() => setShowTutupKas(true)}
-            className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg hover:bg-indigo-700 text-sm font-semibold active:scale-95"
+            className="flex items-center gap-2 bg-sage text-white px-4 py-2.5 rounded-lg hover:bg-sage-deep text-sm font-semibold active:scale-95"
           >
             <Calculator size={16} /> Tutup Kas
           </button>
@@ -236,7 +236,7 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-bold text-gray-800">🏆 Produk Terlaris</h2>
-            <Link href="/produk" className="text-xs text-blue-600 hover:underline">
+            <Link href="/produk" className="text-xs text-navy hover:underline">
               Kelola produk
             </Link>
           </div>
@@ -245,13 +245,13 @@ export default function DashboardPage() {
               label: `${p.label} (${p.qty} pcs)`,
               value: p.value,
             }))}
-            color="#10b981"
+            color="#5b7337"
           />
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
           <div className="flex items-center gap-2 mb-3">
-            <AlertTriangle size={18} className="text-orange-500" />
+            <AlertTriangle size={18} className="text-[#8A795C]" />
             <h2 className="font-bold text-gray-800">Perlu Restok</h2>
           </div>
           {stats.lowStock.length === 0 ? (
@@ -266,7 +266,7 @@ export default function DashboardPage() {
                   <span className="text-gray-700 truncate pr-2">{p.nama_produk}</span>
                   <span
                     className={`font-bold shrink-0 ${
-                      p.stok <= 0 ? "text-red-600" : "text-orange-500"
+                      p.stok <= 0 ? "text-red-600" : "text-[#8A795C]"
                     }`}
                   >
                     {p.stok} / min {p.stok_minimal ?? 10}
@@ -277,7 +277,7 @@ export default function DashboardPage() {
           )}
           <Link
             href="/supplier"
-            className="block text-center text-xs text-blue-600 hover:underline mt-3"
+            className="block text-center text-xs text-navy hover:underline mt-3"
           >
             Lihat supplier →
           </Link>

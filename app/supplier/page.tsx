@@ -95,7 +95,7 @@ export default function SupplierPage() {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">🏭 Manajemen Supplier</h1>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-semibold"
+          className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-deep text-sm font-semibold"
         >
           <Plus size={16} /> Tambah Supplier
         </button>
@@ -109,7 +109,7 @@ export default function SupplierPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Cari nama, kontak, atau alamat supplier..."
-          className="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-9 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-9 py-2.5 text-sm focus:ring-2 focus:ring-navy focus:border-navy outline-none"
         />
         {search && (
           <button
@@ -130,15 +130,15 @@ export default function SupplierPage() {
             <div key={s.id} className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
-                    <Building2 className="text-blue-600" size={20} />
+                  <div className="w-10 h-10 bg-navy/5 rounded-lg flex items-center justify-center shrink-0">
+                    <Building2 className="text-navy" size={20} />
                   </div>
                   <h2 className="text-lg font-bold text-gray-800 truncate">{s.nama_supplier}</h2>
                 </div>
                 <div className="flex gap-1 shrink-0">
                   <button
                     onClick={() => openEdit(s)}
-                    className="p-2 text-amber-600 hover:bg-amber-50 rounded-lg"
+                    className="p-2 text-[#8A795C] hover:bg-cream-soft rounded-lg"
                     title="Edit"
                   >
                     <Edit2 size={15} />
@@ -167,7 +167,7 @@ export default function SupplierPage() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Produk</span>
                   <div className="flex gap-1.5">
-                    <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-semibold">
+                    <span className="bg-navy/10 text-navy text-xs px-2 py-0.5 rounded-full font-semibold">
                       {supplierProducts.length} item
                     </span>
                     {lowStock > 0 && (
@@ -189,7 +189,7 @@ export default function SupplierPage() {
                         </span>
                         <span
                           className={`text-sm font-bold shrink-0 ${
-                            p.stok <= (p.stok_minimal ?? 10) ? "text-red-500" : "text-green-600"
+                            p.stok <= (p.stok_minimal ?? 10) ? "text-red-500" : "text-olive"
                           }`}
                         >
                           {p.stok} pcs
@@ -269,7 +269,7 @@ export default function SupplierPage() {
               </button>
               <button
                 onClick={handleSave}
-                className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                className="flex-1 bg-navy text-white py-2 rounded hover:bg-navy-deep"
               >
                 {editId ? "Update" : "Simpan"}
               </button>

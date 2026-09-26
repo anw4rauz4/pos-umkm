@@ -181,13 +181,13 @@ export default function ProdukPage() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={handleExportExcel}
-            className="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 text-sm font-semibold"
+            className="flex items-center gap-2 bg-sage text-white px-4 py-2 rounded-lg hover:bg-sage-deep text-sm font-semibold"
           >
             <Download size={16} /> Export Excel
           </button>
           <button
             onClick={() => setShowBulk(true)}
-            className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm font-semibold"
+            className="flex items-center gap-2 bg-olive text-white px-4 py-2 rounded-lg hover:bg-olive-deep text-sm font-semibold"
           >
             <FileSpreadsheet size={16} /> Import Excel
           </button>
@@ -196,7 +196,7 @@ export default function ProdukPage() {
               resetForm();
               setShowForm(true);
             }}
-            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-semibold"
+            className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg hover:bg-navy-deep text-sm font-semibold"
           >
             <Plus size={16} /> Tambah Produk
           </button>
@@ -211,7 +211,7 @@ export default function ProdukPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Cari nama produk, SKU, atau barcode..."
-          className="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-9 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-9 py-2.5 text-sm focus:ring-2 focus:ring-navy focus:border-navy outline-none"
         />
         {search && (
           <button
@@ -244,25 +244,25 @@ export default function ProdukPage() {
               <div className="text-xs text-gray-500">SKU: {p.sku || "-"}</div>
               <div className="text-xs text-gray-500 mb-2">Barcode: {p.barcode || "-"}</div>
               <div className="flex justify-between items-center mb-2">
-                <span className="text-blue-600 font-bold text-sm">
+                <span className="text-navy font-bold text-sm">
                   Rp {Number(p.harga_jual).toLocaleString()}
                 </span>
                 <span
                   className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                     p.stok <= (p.stok_minimal ?? 10)
                       ? "bg-red-50 text-red-500"
-                      : "bg-green-50 text-green-600"
+                      : "bg-olive/10 text-olive"
                   }`}
                 >
                   Stok {p.stok}
                 </span>
               </div>
               <div className="flex flex-wrap gap-1 mb-2.5">
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sage/10 text-sage">
                   margin {marginPercent(Number(p.harga_beli) || 0, Number(p.harga_jual) || 0).toFixed(0)}%
                 </span>
                 {normalizeTiers(p.harga_bertingkat).length > 0 && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600 flex items-center gap-0.5">
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sage/10 text-sage flex items-center gap-0.5">
                     <Layers size={9} /> {normalizeTiers(p.harga_bertingkat).length} harga grosir
                   </span>
                 )}
@@ -270,7 +270,7 @@ export default function ProdukPage() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(p)}
-                  className="flex-1 bg-amber-500 text-white py-1.5 rounded text-sm hover:bg-amber-600 flex items-center justify-center gap-1"
+                  className="flex-1 bg-cream-soft0 text-white py-1.5 rounded text-sm hover:bg-[#A6956F] flex items-center justify-center gap-1"
                 >
                   <Edit2 size={12} /> Edit
                 </button>
@@ -330,7 +330,7 @@ export default function ProdukPage() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <label className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-2 rounded border border-blue-200 cursor-pointer hover:bg-blue-100 w-fit">
+                  <label className="flex items-center gap-2 bg-navy/5 text-navy px-3 py-2 rounded border border-blue-200 cursor-pointer hover:bg-navy/10 w-fit">
                     <Upload size={16} />
                     <span className="text-sm">Upload Gambar Produk</span>
                     <input type="file" accept="image/*" onChange={handleUploadGambar} className="hidden" />
@@ -465,7 +465,7 @@ export default function ProdukPage() {
               </button>
               <button
                 onClick={handleSave}
-                className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                className="flex-1 bg-navy text-white py-2 rounded hover:bg-navy-deep"
               >
                 {editId ? "Update" : "Simpan"}
               </button>

@@ -19,17 +19,17 @@ const icons = [
   { file: "maskable-512.png", size: 512, pad: 12 },
 ];
 
-// Logo keranjang belanja + spark "AI" (kuning) pada bg biru.
+// Logo keranjang belanja + spark "AI" pada bg navy (tema frost-berries).
 // pad > 0 → versi maskable: bg penuh 100x100, logo diskalakan ke safe zone.
 const svg = (size, pad) => {
   const inner = 100 - pad * 2;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 100 100">
-  <rect x="${pad}" y="${pad}" width="${inner}" height="${inner}" rx="${pad === 0 ? 18 : 0}" fill="#2563eb"/>
+  <rect x="${pad}" y="${pad}" width="${inner}" height="${inner}" rx="${pad === 0 ? 18 : 0}" fill="#1d2733"/>
   <g transform="translate(0,${pad})" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 30 L31 30 L38 62 L72 62 L78 40 L34 40 Z" stroke="#fff" stroke-width="5.5"/>
-    <circle cx="43" cy="72" r="4.5" fill="#fff"/>
-    <circle cx="66" cy="72" r="4.5" fill="#fff"/>
-    <path d="M80 18 L80 28 M75 23 L85 23" stroke="#fbbf24" stroke-width="4"/>
+    <path d="M22 30 L31 30 L38 62 L72 62 L78 40 L34 40 Z" stroke="#e5dccb" stroke-width="5.5"/>
+    <circle cx="43" cy="72" r="4.5" fill="#a9bfc9"/>
+    <circle cx="66" cy="72" r="4.5" fill="#a9bfc9"/>
+    <path d="M80 18 L80 28 M75 23 L85 23" stroke="#a9bfc9" stroke-width="4"/>
   </g>
 </svg>`;
 };

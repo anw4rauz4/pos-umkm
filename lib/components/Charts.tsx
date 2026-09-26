@@ -42,10 +42,10 @@ export function StatCard({
   trend?: number;
 }) {
   const colors: Record<string, string> = {
-    blue: "bg-blue-50 text-blue-600",
-    green: "bg-green-50 text-green-600",
-    purple: "bg-purple-50 text-purple-600",
-    orange: "bg-orange-50 text-orange-600",
+    blue: "bg-navy/5 text-navy",
+    green: "bg-olive/10 text-olive",
+    purple: "bg-powder-soft text-sage-deep",
+    orange: "bg-cream-soft text-[#8A795C]",
     red: "bg-red-50 text-red-600",
   };
   const Icon = icon;
@@ -60,7 +60,7 @@ export function StatCard({
         {(sub || trend !== undefined) && (
           <p className="text-[11px] text-gray-400 mt-0.5">
             {trend !== undefined && (
-              <span className={trend >= 0 ? "text-green-600 font-semibold" : "text-red-500 font-semibold"}>
+              <span className={trend >= 0 ? "text-olive font-semibold" : "text-red-500 font-semibold"}>
                 {trend >= 0 ? "▲" : "▼"} {Math.abs(trend).toFixed(0)}%{" "}
               </span>
             )}
@@ -76,7 +76,7 @@ export function StatCard({
 export function AreaChart({
   data,
   height = 220,
-  color = "#2563eb",
+  color = "#5c6f67",
   valueFormat = fmtRp,
 }: {
   data: ChartItem[];
@@ -216,7 +216,7 @@ export function AreaChart({
 // ---------- Bar chart (horizontal, untuk ranking) ----------
 export function BarChart({
   items,
-  color = "#2563eb",
+  color = "#5b7337",
   valueFormat = fmtRp,
   emptyText = "Belum ada data",
 }: {
@@ -293,7 +293,16 @@ export function DonutChart({
   const strokeW = 22;
   const circ = 2 * Math.PI * r;
 
-  const palette = ["#2563eb", "#10b981", "#f59e0b", "#8b5cf6", "#ef4444", "#06b6d4", "#ec4899"];
+  // Palet frost-berries + turunannya agar segaris dengan tema UI
+  const palette = [
+    "#1d2733", // navy
+    "#5c6f67", // sage
+    "#5b7337", // olive
+    "#a9bfc9", // powder
+    "#8a795c", // cream-deep
+    "#4c5d55", // sage-deep
+    "#b9a88a", // cream-deep terang
+  ];
 
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4">

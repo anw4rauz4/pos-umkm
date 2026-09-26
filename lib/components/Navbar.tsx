@@ -17,6 +17,22 @@ import {
   UserRound,
 } from "lucide-react";
 import { useAuth, logoutUser } from "@/lib/auth";
+import { hasPin } from "@/lib/encryption";
+
+/** true setelah mount; nilai dihitung dari getter localStorage saat itu (hindari setState langsung di effect). */
+function useStateWithMountCheck(getValue: () => boolean): [boolean] {
+  const [mounted, setMounted] = useState(false);
+  const [value, setValue] = useState<boolean | null>(null);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setValue(getValue());
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return [mounted && value === true];
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,6 +40,9 @@ export default function Navbar() {
   const { user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  // Status PIN dari localStorage — ready menjadi true setelah mount (setTimeout 0)
+  // sehingga render SSR dan hydration pertama konsisten tanpa tombol.
+  const [pinReady] = useStateWithMountCheck(hasPin);
 
   // Tutup dropdown saat klik di luar
   useEffect(() => {
@@ -87,8 +106,18 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Profil */}
-          <div className="relative shrink-0" ref={menuRef}>
+          {/* Profil + lock cepat */}
+          <div className="flex items-center gap-1 shrink-0">
+            {pinReady && (
+              <button
+                onClick={() => router.push("/lock")}
+                title="Kunci layar (PIN)"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-navy transition-colors"
+              >
+                <Lock size={18} />
+              </button>
+            )}
+            <div className="relative" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100"
@@ -121,13 +150,15 @@ export default function Navbar() {
                 >
                   <UserRound size={15} /> Profil
                 </Link>
-                <Link
-                  href="/lock"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
-                >
-                  <Lock size={15} /> Kunci Layar (PIN)
-                </Link>
+                {pinReady && (
+                  <Link
+                    href="/lock"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    <Lock size={15} /> Kunci Layar (PIN)
+                  </Link>
+                )}
                 <button
                   onClick={handleLogout}
                   className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50"
@@ -136,6 +167,7 @@ export default function Navbar() {
                 </button>
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>

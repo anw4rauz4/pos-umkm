@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLiveQuery } from "dexie-react-hooks";
 import db from "@/lib/db";
-import { useAuth } from "@/lib/auth";
 import { setPin as savePin, hasPin, verifyPin, isUnlocked } from "@/lib/encryption";
-import { Lock, Delete, ShieldCheck, Wallet, ArrowLeft } from "lucide-react";
+import { Lock, Delete, ShieldCheck, Wallet, ArrowLeft, UserRound } from "lucide-react";
+import { useAuth, logoutUser } from "@/lib/auth";
 
 type LockMode = "loading" | "setup" | "verify" | "unlocked";
 
@@ -66,6 +66,13 @@ export default function LockPage() {
     }, 0);
     return () => clearTimeout(t);
   }, [pin, mode, router]);
+
+  // Keluar dari akun di layar kunci — PIN tetap tersimpan, akun berikutnya
+  // tetap bisa buka kunci dengan PIN yang sama (PIN per perangkat, bukan per akun).
+  const handleGantiAkun = async () => {
+    await logoutUser();
+    router.replace("/login");
+  };
 
   const confirmSetup = () => {
     if (pin.length < 6) {
@@ -158,12 +165,21 @@ export default function LockPage() {
                 </p>
               </div>
             </div>
-            <button
-              onClick={() => router.back()}
-              className="mt-5 text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1 mx-auto"
-            >
-              <ArrowLeft size={14} /> Kembali
-            </button>
+            <div className="mt-5 flex flex-col items-center gap-2">
+              <button
+                onClick={() => router.back()}
+                className="text-sm text-gray-400 hover:text-gray-600 flex items-center gap-1 mx-auto"
+              >
+                <ArrowLeft size={14} /> Kembali
+              </button>
+              <button
+                onClick={handleGantiAkun}
+                className="text-sm text-gray-500 hover:text-navy flex items-center gap-1.5 mx-auto"
+                title="Keluar dari akun ini di layar kunci, PIN tetap tersimpan"
+              >
+                <UserRound size={14} /> Ganti Akun (tanpa hapus PIN)
+              </button>
+            </div>
           </div>
         )}
       </div>

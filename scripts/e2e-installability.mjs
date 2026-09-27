@@ -3,8 +3,6 @@
  * Jalankan: node scripts/e2e-installability.mjs (server produksi jalan di :3000)
  */
 import puppeteer from "puppeteer-core";
-import fs from "fs";
-import path from "path";
 
 const BASE = process.env.BASE_URL || "http://localhost:3000";
 const CHROME =
@@ -106,7 +104,6 @@ try {
 
   // Service worker start_url sesuai manifest
   const startUrlOk = await page.evaluate(async () => {
-    const reg = await navigator.serviceWorker.getRegistration();
     const m = await (await fetch("/manifest.webmanifest")).json();
     const scopeUrl = new URL(m.scope || "/", location.href).href;
     const startUrl = new URL(m.start_url, location.href).href;

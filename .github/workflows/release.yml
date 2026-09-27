@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build, Pack & Publish Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Verifikasi build (jangan rilis kalau gagal)
+        run: |
+          npm ci
+          npx tsc --noEmit
+          npm run build
+
+      - name: Siapkan folder paket
+        run: |
+          PKG="kasirku-ai-${GITHUB_REF_NAME}"
+          mkdir -p "dist/${PKG}"
+
+          for item in app lib public scripts; do
+            cp -r "$item" "dist/${PKG}/"
+          done
+          for f in package.json package-lock.json tsconfig.json next.config.ts eslint.config.mjs postcss.config.mjs start-kasirku.bat stop-kasirku.bat README.md LICENSE; do
+            [ -f "$f" ] && cp "$f" "dist/${PKG}/"
+          done
+
+          cat > "dist/${PKG}/INSTALL.txt" <<'EOF'
+          KasirKu AI — POS UMKM 100% Offline
+          ==================================
+          Cara pakai (Windows):
+          1. Install Node.js v20+ dari https://nodejs.org
+          2. Double-click start-kasirku.bat
+             (pertama kali: otomatis npm install + build, butuh internet sekali saja)
+          3. Browser terbuka di http://localhost:3000
+
+          Setelah setup awal, aplikasi berjalan 100% offline.
+
+          Mematikan server: stop-kasirku.bat
+          Panduan lengkap: README.md
+          EOF
+
+      - name: Zip paket + checksum SHA256
+        run: |
+          PKG="kasirku-ai-${GITHUB_REF_NAME}"
+          cd dist
+          zip -r -q "${PKG}.zip" "${PKG}"
+          sha256sum "${PKG}.zip" > "${PKG}.zip.sha256"
+          ls -la
+
+      - name: Buat GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: KasirKu AI ${{ github.ref_name }}
+          body: |
+            ## KasirKu AI ${{ github.ref_name }} — POS UMKM 100% Offline
+
+            **Cara install (Windows):**
+            1. Download & extract `kasirku-ai-${{ github.ref_name }}.zip`
+            2. Install Node.js v20+ dari https://nodejs.org (sekali saja)
+            3. Double-click **start-kasirku.bat** → browser terbuka di http://localhost:3000
+
+            Aplikasi berjalan 100% offline — semua data tersimpan di browser Anda (IndexedDB), tanpa cloud.
+            Lihat README.md untuk panduan lengkap.
+          files: |
+            dist/*.zip
+            dist/*.sha256

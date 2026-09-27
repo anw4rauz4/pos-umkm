@@ -42,3 +42,6 @@ next-env.d.ts
 
 # screenshot progress log
 docs/.screenshot-progress.log
+
+# release packaging (artefak lokal)
+/dist/

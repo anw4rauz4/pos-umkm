@@ -1,4 +1,22 @@
+<div align="center">
+
 # 🛒 KasirKu AI — POS UMKM 100% Offline
+
+[![CI](https://github.com/anw4rauz4/pos-umkm/actions/workflows/ci.yml/badge.svg)](https://github.com/anw4rauz4/pos-umkm/actions/workflows/ci.yml)
+![Next.js](https://img.shields.io/badge/Next.js-16-1d2733?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-5c6f67?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-4c612d?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-a9bfc9?logo=tailwindcss&logoColor=1d2733)
+![PWA](https://img.shields.io/badge/PWA-offline--first-5b7337)
+![License](https://img.shields.io/badge/License-MIT-8a795c)
+
+**Kasir • Stok • Supplier • Laporan • Tutup Kas — semuanya lokal di laptop Anda, tanpa internet.**
+
+| 🧾 Kasir | 📊 Dashboard | 📦 Produk |
+|:---:|:---:|:---:|
+| ![Kasir](docs/screenshot-kasir.png) | ![Dashboard](docs/screenshot-dashboard.png) | ![Produk](docs/screenshot-produk.png) |
+
+</div>
 
 Aplikasi kasir UMKM yang berjalan **sepenuhnya di localhost laptop Anda**. Semua data tersimpan di browser (IndexedDB), semua fitur berfungsi tanpa internet.
 
@@ -92,7 +110,7 @@ kasirku-ai/
 │
 ├── lib/                        # Business logic (semua TypeScript)
 │   ├── db.ts                   # Skema Dexie (IndexedDB) + seed data
-│   ├── auth.ts                 # Register/login/sesi (sessionStorage lokal)
+│   ├── auth.ts                 # Register/login/sesi (localStorage lokal)
 │   ├── auth.types.ts           # Tipe UserSession
 │   ├── types.ts                # Tipe domain (Product, Transaction, dll)
 │   ├── dbHelpers.ts            # productService / supplierService / transactionService
@@ -108,7 +126,7 @@ kasirku-ai/
 │   ├── sw.js                   # Service worker (cache offline-first PWA)
 │   └── icons/                  # Ikon PWA 192/512 + maskable
 │
-├── scripts/e2e-test.mjs        # Smoke test dengan Puppeteer (localhost)
+├── scripts/                    # E2E test (Puppeteer), generate ikon & screenshot
 └── package.json
 ```
 
@@ -245,7 +263,7 @@ Klik tombol **Tutup Kas** di dashboard di akhir hari:
 
 ## 💾 Database Schema (IndexedDB)
 
-Database: **`KasirKuAI_Local`** (Dexie v3, tersimpan di browser laptop Anda)
+Database: **`KasirKuAI_Local`** (Dexie, schema v4 — tersimpan di browser laptop Anda)
 
 | Tabel | Isi |
 |---|---|

@@ -6,6 +6,18 @@ versi mengikuti [Semantic Versioning](https://semver.org/lang/id/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-27
+
+### Ditambahkan
+
+- 🔌 **Perangkat plug-n-play**: printer struk Bluetooth (Web Bluetooth + ESC/POS 58mm) — pair sekali via menu **Perangkat** di kasir, tersimpan & auto-reconnect; tombol tes cetak; opsi auto-print saat checkout dengan fallback popup bila printer mati
+- 🔍 **Scanner plug-n-play (WebHID)**: scanner USB/BT-dongle ter-pair langsung memasukkan hasil scan ke keranjang; scanner mode keyboard (USB) tetap didukung
+- 🧪 **Test runner E2E terpadu**: `npm test` menjalankan semua 6 suite (73 tes) berurutan dengan ringkasan; filter suite via `npm test -- kasir`
+
+### Berubah
+
+- Halaman kasir: tombol **Perangkat** dengan indikator printer aktif; cetak ulang struk otomatis memakai printer Bluetooth bila tersambung
+
 ## [0.1.0] - 2026-09-27
 
 Rilis pertama.

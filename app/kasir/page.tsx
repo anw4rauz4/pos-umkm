@@ -6,6 +6,13 @@ import { transactionService, type CartItem } from "@/lib/dbHelpers";
 import { useAuth } from "@/lib/auth";
 import { printReceipt, type ReceiptData } from "@/lib/printReceipt";
 import BarcodeScanner from "@/lib/components/BarcodeScanner";
+import DevicesModal from "@/lib/components/DevicesModal";
+import {
+  isPrinterConnected,
+  printReceiptToBluetooth,
+  connectScanner,
+  getAutoPrint,
+} from "@/lib/hidDevices";
 import { ScanBarcode, Printer, Search, Package, Trash2, Percent, RotateCcw, X } from "lucide-react";
 import { getTiers, resolveTierPrice, findActiveTier, formatRp, type TierHarga } from "@/lib/tierPricing";
 
@@ -18,6 +25,8 @@ export default function KasirPage() {
   const [search, setSearch] = useState("");
   const [payModal, setPayModal] = useState(false);
   const [bayar, setBayar] = useState("");
+  const [showDevices, setShowDevices] = useState(false);
+  const [printerOn, setPrinterOn] = useState(false);
   const { user } = useAuth();
   const produk = useLiveQuery(() => db.products.toArray(), []) || [];
 
@@ -186,7 +195,17 @@ export default function KasirPage() {
       };
 
       setLastTrx(trxData);
-      printReceipt(trxData);
+
+      // Cetak: printer Bluetooth plug-n-play dulu (tanpa dialog); gagal → fallback popup
+      if (isPrinterConnected() && getAutoPrint()) {
+        try {
+          await printReceiptToBluetooth(trxData);
+        } catch {
+          printReceipt(trxData);
+        }
+      } else {
+        printReceipt(trxData);
+      }
       setCart([]);
     } catch (err) {
       alert("❌ Error: " + (err instanceof Error ? err.message : String(err)));
@@ -194,8 +213,27 @@ export default function KasirPage() {
   };
 
   const handleReprint = () => {
-    if (lastTrx) printReceipt(lastTrx);
+    if (!lastTrx) return;
+    if (isPrinterConnected()) {
+      printReceiptToBluetooth(lastTrx).catch(() => printReceipt(lastTrx));
+    } else {
+      printReceipt(lastTrx);
+    }
   };
+
+  // Scanner HID plug-n-play: aktif otomatis saat ada scanner ter-pair (WebHID).
+  // USB scanner mode keyboard tetap ditangkap handler keydown dokumen.
+  useEffect(() => {
+    let cleanup: (() => void) | undefined;
+    connectScanner((kode) => handleBarcodeDetected(kode))
+      .then((fn) => (cleanup = fn))
+      .catch(() => {}); // belum ter-pair / tidak tersambung — abaikan
+    return () => cleanup?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [produk]);
+
+  // Indikator printer di-refresh lewat onDeviceChange dari modal (bukan effect,
+  // untuk menghindari setState langsung dalam effect).
 
   const total = cart.reduce((s, i) => s + itemSubtotal(i), 0);
 
@@ -211,6 +249,18 @@ export default function KasirPage() {
           >
             <ScanBarcode size={18} />
             Scan Barcode
+          </button>
+          <button
+            onClick={() => setShowDevices(true)}
+            title="Printer & scanner plug-n-play"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
+              printerOn
+                ? "bg-olive text-white border-olive"
+                : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
+            }`}
+          >
+            <Printer size={18} />
+            <span className="hidden sm:inline">Perangkat</span>
           </button>
         </div>
 
@@ -488,6 +538,12 @@ export default function KasirPage() {
           </div>
         </div>
       )}
+
+      <DevicesModal
+        open={showDevices}
+        onClose={() => setShowDevices(false)}
+        onDeviceChange={() => setPrinterOn(isPrinterConnected())}
+      />
     </div>
   );
 }

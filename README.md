@@ -83,6 +83,7 @@ Aplikasi kasir UMKM yang berjalan **sepenuhnya di localhost laptop Anda**. Semua
 | dexie-react-hooks | 4.4.0 | Reactive queries ke IndexedDB |
 | crypto-js | 4.2.0 | Hash password (SHA-256 + salt) & PIN |
 | html5-qrcode | 2.3.8 | Scan barcode via kamera (bundled lokal, bukan CDN) |
+| Web Bluetooth / WebHID | built-in Chrome | Printer thermal & scanner plug-n-play (tanpa driver) |
 | lucide-react | 1.48.0 | Ikon |
 | xlsx | 0.18.5 | Import/Export Excel |
 
@@ -120,6 +121,7 @@ kasirku-ai/
 │   ├── encryption.ts           # PIN lock (hash SHA-256, localStorage)
 │   ├── tierPricing.ts          # Harga grosir bertingkat
 │   ├── printReceipt.ts         # Struk thermal 58mm
+│   ├── hidDevices.ts           # Printer Bluetooth (ESC/POS) & scanner WebHID plug-n-play
 │   ├── exportHelpers.ts        # Export Excel & laporan PDF
 │   ├── imageHelper.ts          # Kompres gambar → base64
 │   ├── syncDual.ts             # Placeholder sync (mati, mode "local-only" permanen)
@@ -161,6 +163,9 @@ npm run dev
 
 # 3. Buka browser
 # http://localhost:3000
+
+# 4. (Opsional) Jalankan semua tes E2E — butuh build produksi jalan di :3000
+npm test
 ```
 
 ### Mode produksi (lebih cepat & stabil untuk dipakai harian)
@@ -170,6 +175,15 @@ npm run build
 npm run start
 # → http://localhost:3000
 ```
+
+### Perangkat plug-n-play (printer & scanner)
+
+Di halaman **Kasir**, klik tombol **Perangkat**:
+
+- **Printer struk Bluetooth** — pair sekali lewat dialog Chrome/Edge, struk 58mm dikirim langsung via ESC/POS (tanpa dialog print). Ada tombol *Tes Cetak* dan opsi *auto-print* saat checkout; jika printer mati/terputus, struk otomatis fallback ke popup print.
+- **Barcode scanner (WebHID)** — scanner USB/BT-dongle ter-pair langsung memasukkan barang ke keranjang. Scanner mode keyboard biasa tetap didukung tanpa pairing.
+
+> Persyaratan: Chrome/Edge desktop (Web Bluetooth & WebHID); printer thermal BLE dengan service ESC/POS standar (UUID `18F0`).
 
 ### Environment variables
 
@@ -225,6 +239,7 @@ Saat edit produk, centang tier qty (mis. beli 3+ → harga khusus). Di kasir, ha
 | 14 | 💵 Laporan kas harian (tunai diterima / kembalian) | ✅ |
 | 15 | 🧮 Tutup kas: setoran, selisih, & riwayat harian | ✅ |
 | 16 | ⚡ Offline penuh sejak install — semua route di-precache | ✅ |
+| 17 | 🔌 Plug-n-play: printer Bluetooth (ESC/POS) & scanner WebHID — pair sekali, auto-reconnect | ✅ |
 
 ---
 

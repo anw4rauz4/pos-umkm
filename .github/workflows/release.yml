@@ -33,7 +33,7 @@ jobs:
           for item in app lib public scripts; do
             cp -r "$item" "dist/${PKG}/"
           done
-          for f in package.json package-lock.json tsconfig.json next.config.ts eslint.config.mjs postcss.config.mjs start-kasirku.bat stop-kasirku.bat README.md LICENSE; do
+          for f in package.json package-lock.json tsconfig.json next.config.ts eslint.config.mjs postcss.config.mjs start-kasirku.bat stop-kasirku.bat README.md CHANGELOG.md LICENSE; do
             [ -f "$f" ] && cp "$f" "dist/${PKG}/"
           done
 
@@ -73,7 +73,9 @@ jobs:
             3. Double-click **start-kasirku.bat** → browser terbuka di http://localhost:3000
 
             Aplikasi berjalan 100% offline — semua data tersimpan di browser Anda (IndexedDB), tanpa cloud.
-            Lihat README.md untuk panduan lengkap.
+
+            📝 Riwayat perubahan: [CHANGELOG.md](https://github.com/anw4rauz4/pos-umkm/blob/master/CHANGELOG.md)
+            📖 Panduan lengkap: [README.md](https://github.com/anw4rauz4/pos-umkm#readme)
           files: |
             dist/*.zip
             dist/*.sha256

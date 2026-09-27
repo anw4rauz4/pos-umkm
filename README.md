@@ -3,6 +3,7 @@
 # 🛒 KasirKu AI — POS UMKM 100% Offline
 
 [![CI](https://github.com/anw4rauz4/pos-umkm/actions/workflows/ci.yml/badge.svg)](https://github.com/anw4rauz4/pos-umkm/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/anw4rauz4/pos-umkm?label=rilis&logo=github)](https://github.com/anw4rauz4/pos-umkm/releases/latest)
 ![Next.js](https://img.shields.io/badge/Next.js-16-1d2733?logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-5c6f67?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-4c612d?logo=typescript&logoColor=white)
@@ -29,6 +30,7 @@ Aplikasi kasir UMKM yang berjalan **sepenuhnya di localhost laptop Anda**. Semua
 
 ## 📖 Daftar Isi
 
+0. [Changelog](CHANGELOG.md)
 1. [Kenapa 100% Offline?](#-kenapa-100-offline)
 2. [Tech Stack](#️-tech-stack)
 3. [Struktur Project](#-struktur-project)
